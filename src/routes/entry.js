@@ -31,9 +31,9 @@ router.post('/createentry',
 })
 
 // Read an entry by Email
-router.get('/getentrybyemail', async (req, res) => {
+router.get('/getentrybyid', async (req, res) => {
     try {
-        const foundEntry = await Entry.findOne({ email: req.body.email })
+        const foundEntry = await Entry.findOne({ _id: req.body.id })
 
         if (!foundEntry) {
             return res.status(400).json({
