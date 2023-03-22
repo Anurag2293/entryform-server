@@ -32,9 +32,9 @@ router.post('/createentry',
 // Read an entry by Email
 router.get('/getentrybyemail', async (req, res) => {
     try {
-        const entry = await Entry.findOne({ email: req.body.email })
+        const foundEntry = await Entry.findOne({ email: req.body.email })
 
-        if (!entry) {
+        if (!foundEntry) {
             return res.status(400).json({
                 success: false,
                 message: `No Entry exists with email ${req.body.email}`
@@ -43,7 +43,7 @@ router.get('/getentrybyemail', async (req, res) => {
 
         return res.json({
             success: true,
-            entry
+            foundEntry
         })
     } catch (error) {
         res.status(501).json({
