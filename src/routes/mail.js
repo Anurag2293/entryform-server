@@ -8,12 +8,16 @@ router.post('/sendmail', async (req, res) => {
     try {
         const Ids = req.body
         const allEntries = await Entry.find()
+        const data = [];
 
-        const data = allEntries.filter((entry) => {
-            return Ids.some((selectedEntry) => {
-                return selectedEntry._id === entry._id.toString()
-            })
-        })
+        for (let i=0; i<allEntries.length; i++) {
+            const ID = allEntries[i]._id.toString();
+            for (let j=0; j<Ids.length; j++) {
+                if (Ids[j] === ID) {
+                    data.push(allEntries[i])
+                }
+            }
+        }
 
         await sendDataEmail(data)
         res.json({

@@ -15,9 +15,6 @@ export const sendDataEmail = async (data) => {
 
     try {
         await sgMail.send(msg)
-
-        console.log(data)
-        console.log("Email sent successfully")
     } catch (error) {
         throw new Error(error.message)
     }
