@@ -12,7 +12,6 @@ router.post('/createentry',
 
     async (req, res) => {
         try {
-            console.log(req.body)
             const createdEntry = new Entry(req.body)
             await createdEntry.save()
 
@@ -23,7 +22,9 @@ router.post('/createentry',
             })
         } catch (error) {
             res.status(501).json({
-                success : false,
+                success
+                
+                : false,
                 message : error.message
             })
         }
@@ -59,15 +60,17 @@ router.get('/getallentries', async (req, res) => {
         const results = await Entry.find()
 
         if (results.length === 0) {
-            return res.status(400).json({
-                success: false,
-                message: "No Entry exists. Add Entries to see them here."
+            return res.status(200).json({
+                success: true,
+                message: "No Entry exists. Add Entries to see them here.",
+                entries: []
             })
         }
 
         res.status(200).json({
             success: true,
-            results
+            message: "Here are all the Entries",
+            entries: results
         })
     } catch (error) {
         res.status(501).json({
@@ -78,10 +81,10 @@ router.get('/getallentries', async (req, res) => {
 })
 
 // Update an Entry by Email
-router.put('/updateentrybyemail', async (req, res) => {
+router.put('/updateentry', async (req, res) => {
     try {
-        const { name, email, phoneNumber, hobbies } = req.body
-        const updatedEntry = await Entry.findOneAndUpdate({ email }, {
+        const { id, name, email, phoneNumber, hobbies } = req.body
+        const updatedEntry = await Entry.findByIdAndUpdate(id, {
             name, email, phoneNumber, hobbies
         }, {
             new : true
@@ -101,14 +104,14 @@ router.put('/updateentrybyemail', async (req, res) => {
 })
 
 // Delete Entry by Email
-router.delete('/deleteentrybyemail', async (req, res) => {
+router.delete('/deleteentry', async (req, res) => {
     try {
-        const { email } = req.body
+        const { id } = req.body
 
-        const deletedEntry = await Entry.findOneAndDelete({ email })
+        const deletedEntry = await Entry.findByIdAndDelete(id)
 
         res.status(200).json({
-            succces: true,
+            success: true,
             message: "Entry deleted successfully",
             deletedEntry
         })
