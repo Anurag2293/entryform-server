@@ -7,7 +7,7 @@ export const sendDataEmail = async (data) => {
     const html = `<pre>${prettyPrintJson.toHtml(data)}</pre>`;
 
     const msg = {
-        to : 'anuragdhote392@gmail.com',
+        to : 'info@redpositive.in',
         from : 'anuragrdhote@gmail.com',
         subject : 'Data',
         html: html

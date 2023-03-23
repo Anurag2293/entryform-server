@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/34d658a5-02a5-4f1c-9b44-9438d37dddc9/resourceGroups/AppServiceQS-rg/providers/Microsoft.Web/sites/form-entry-server",
+    "appService.deploySubpath": "."
+}
